@@ -1,0 +1,83 @@
+{
+  "kind": "spec_vs_diff_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-05T06:03:20.153Z",
+  "summary": "Diff adds a Motoko backend actor with profile/session/report types and several new frontend pages/hooks implementing Internet Identity gating, profile setup/editing, an assessment runner/review/complete flow, report editor, history, and a visual theme. However, key backend persistence (stable storage), scoring APIs/logic, and report versioning metadata (updated by) are not evidenced in the truncated backend diff, and several implemented behaviors (quiz-like correct answers/isCorrect, secret admin token initialization) were not explicitly requested.",
+  "missing_requirements": [
+    {
+      "id": "REQ-3",
+      "requirement": "Implement automated scoring/assessment logic in the Motoko backend for the 150-question assessment, expose backend methods to compute and retrieve scores for a completed session, and persist scores in stable storage.",
+      "reason": "The backend snippet defines Score type and Response has isCorrect, but the diff summary does not show any concrete scoring computation method(s), query method(s) to retrieve scores, nor any stable storage / preupgrade-postupgrade logic to persist scores across upgrades.",
+      "evidence": [
+        "backend/main.mo (truncated)"
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "requirement": "Provide editable career guidance reports with backend persistence and versioning metadata including last updated time and updated by.",
+      "reason": "CareerReport includes updatedTime and version, but no \"updated by\" field is shown. Frontend shows last updated time and version, but there is no evidence that the backend stores editor identity (updated by) as required.",
+      "evidence": [
+        "backend/main.mo (truncated)",
+        "frontend/src/pages/ReportEditorPage.tsx (truncated)"
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "requirement": "Implement persistent storage (stable storage) and retrieval for profiles, sessions, responses, scores, and reports; list history; enforce access control; data remains after canister upgrade.",
+      "reason": "The backend uses in-memory Maps (userProfiles, assessmentSessions, careerReports) in the shown snippet, but there is no evidence of stable variables or upgrade hooks (preupgrade/postupgrade) to persist data across upgrades, which is explicitly required.",
+      "evidence": [
+        "backend/main.mo (truncated)"
+      ]
+    }
+  ],
+  "hallucinated_features": [
+    {
+      "description": "Assessment modeled as a 'correct answer' quiz with per-question correctness (correctAnswer fields and isCorrect stored per response).",
+      "reason": "The BuildRequest asks for a career guidance assessment and scoring logic but does not specify objectively correct answers per question nor storing a boolean isCorrect for each response; this is an extra/unrequested design choice that changes the nature of the assessment.",
+      "evidence": [
+        "frontend/src/lib/assessment/questions.ts (truncated)",
+        "backend/main.mo (truncated)",
+        "frontend/src/pages/AssessmentRunnerPage.tsx (truncated)"
+      ]
+    },
+    {
+      "description": "Secret admin token bootstrapping via URL parameter caffeineAdminToken and calling _initializeAccessControlWithSecret from the frontend actor hook.",
+      "reason": "REQ-5 allows an 'explicitly defined admin role', but the BuildRequest does not request a secret-token-based admin initialization flow via URL parameters; this appears as additional functionality beyond the specified requirements.",
+      "evidence": [
+        "frontend/src/hooks/useActor.ts",
+        "backend/main.mo (truncated)"
+      ]
+    }
+  ],
+  "confidence": 0.68,
+  "changed_files": [
+    "all_files_summary.json",
+    "backend/main.mo",
+    "frontend-file-summaries.txt",
+    "frontend/index.css",
+    "frontend/index.html",
+    "frontend/src/App.tsx",
+    "frontend/src/components/auth/LoginButton.tsx",
+    "frontend/src/components/layout/AppShell.tsx",
+    "frontend/src/components/profile/ProfileSetupModal.tsx",
+    "frontend/src/hooks/useActor.ts",
+    "frontend/src/hooks/useInternetIdentity.ts",
+    "frontend/src/hooks/useQueries.ts",
+    "frontend/src/index.css",
+    "frontend/src/lib/assessment/questions.ts",
+    "frontend/src/main.tsx",
+    "frontend/src/pages/AssessmentCompletePage.tsx",
+    "frontend/src/pages/AssessmentReviewPage.tsx",
+    "frontend/src/pages/AssessmentRunnerPage.tsx",
+    "frontend/src/pages/AssessmentStartPage.tsx",
+    "frontend/src/pages/AssessmentsListPage.tsx",
+    "frontend/src/pages/DashboardPage.tsx",
+    "frontend/src/pages/HistoryPage.tsx",
+    "frontend/src/pages/ProfilePage.tsx",
+    "frontend/src/pages/ReportEditorPage.tsx",
+    "frontend/src/pages/ResultsPage.tsx",
+    "frontend/src/utils/urlParams.ts",
+    "frontend/tailwind.config.js",
+    "project_state.json"
+  ]
+}

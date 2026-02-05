@@ -1,0 +1,227 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "BELKRISHNA GlobalEdge Career Guidance Program - Frontend Plan",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "summary": "Implement Internet Identity login on the frontend with student profile create/fetch/update UX keyed to the authenticated principal.",
+      "acceptanceCriteria": [
+        "A user can sign in with Internet Identity and see their profile information",
+        "Backend stores and returns a profile record for the signed-in principal",
+        "A user can update basic profile fields and see them persisted after refresh/re-login"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "create",
+          "description": "Create the app shell with authenticated routing and guarded content so users must be logged in before accessing any program data. Use the selected \"authorization\" component patterns for Internet Identity auth gating and role-aware UI (e.g., show an access denied screen when unauthorized). Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/auth/LoginButton.tsx",
+          "operation": "create",
+          "description": "Add a reusable Login/Logout button that uses the existing Internet Identity hook and clears cached app data on logout (React Query cache). Use the selected \"authorization\" component guidance for login/logout behavior. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/hooks/useCurrentUserProfile.ts",
+          "operation": "create",
+          "description": "Implement a React Query hook to fetch the current user profile from the backend actor and expose loading states that avoid profile-setup modal flashing. Use the selected \"authorization\" component guidance for getCallerUserProfile() query patterns. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/profile/ProfileSetupModal.tsx",
+          "operation": "create",
+          "description": "Create a first-login profile setup modal that prompts for name/email/school (English text) when getCallerUserProfile returns null, and saves via saveCallerUserProfile(). Use the selected \"authorization\" component guidance for first-time profile collection. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/ProfilePage.tsx",
+          "operation": "create",
+          "description": "Create a profile page to view/edit basic profile fields and persist them via saveCallerUserProfile(), showing saved state after refresh/re-login."
+        }
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "summary": "Create the 150-question assessment workflow with progress, navigation, autosave of responses, review, submission, and backend-backed resume after refresh.",
+      "acceptanceCriteria": [
+        "The UI presents an assessment flow with question navigation and progress",
+        "Responses are persisted to the backend during the session (not only at the end)",
+        "Refreshing the page resumes the latest in-progress session for the signed-in user"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/lib/assessment/questions.ts",
+          "operation": "create",
+          "description": "Add the full set of 150 assessment questions as structured, English-only static data (IDs, prompt text, answer choices as needed) to drive the test-taking UI."
+        },
+        {
+          "path": "frontend/src/hooks/useAssessmentSession.ts",
+          "operation": "create",
+          "description": "Implement frontend session orchestration around backend capabilities: startAssessmentSession, getAssessmentSession, submitResponse (persist per-question), and completeAssessmentSession. Include logic to load and resume an in-progress session for the signed-in user after refresh (e.g., by remembering the active sessionId client-side and rehydrating from backend)."
+        },
+        {
+          "path": "frontend/src/components/assessment/AssessmentProgress.tsx",
+          "operation": "create",
+          "description": "Create a progress indicator component for the assessment (answered count, current question index, overall progress) with consistent interactive styling."
+        },
+        {
+          "path": "frontend/src/pages/AssessmentStartPage.tsx",
+          "operation": "create",
+          "description": "Create a start assessment screen that begins or resumes an assessment session for the signed-in user and routes into the active assessment experience."
+        },
+        {
+          "path": "frontend/src/pages/AssessmentRunnerPage.tsx",
+          "operation": "create",
+          "description": "Create the active assessment experience: question rendering, previous/next navigation, direct question jump (optional), and autosave of each response to the backend during the session."
+        },
+        {
+          "path": "frontend/src/pages/AssessmentReviewPage.tsx",
+          "operation": "create",
+          "description": "Create a review screen to summarize responses, highlight unanswered items, and allow navigation back to specific questions before final submission/finish."
+        },
+        {
+          "path": "frontend/src/pages/AssessmentCompletePage.tsx",
+          "operation": "create",
+          "description": "Create a submission/finish screen that completes the session (completeAssessmentSession) and routes to results/scores and report for that session."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wire the assessment pages into the router/navigation flow (start, runner, review, complete) and ensure routes are protected behind login. Use the selected \"authorization\" component patterns for protected UI. Verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "summary": "Provide a detailed career guidance report viewer/editor UI with persistence for edits and visible versioning metadata.",
+      "acceptanceCriteria": [
+        "After completing scoring, a report is created and viewable for that session",
+        "A user can edit report fields in the UI and save changes",
+        "Reloading the report shows the saved edits and updated timestamps"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/hooks/useCareerReport.ts",
+          "operation": "create",
+          "description": "Add React Query hooks for loading and updating a report via backend capabilities (getCareerReport, createCareerReport when needed, updateCareerReport), including cache invalidation and optimistic UI where appropriate."
+        },
+        {
+          "path": "frontend/src/pages/ResultsPage.tsx",
+          "operation": "create",
+          "description": "Create a results/scores view for a completed assessment session that provides a clear path to open the generated report for that session."
+        },
+        {
+          "path": "frontend/src/pages/ReportEditorPage.tsx",
+          "operation": "create",
+          "description": "Create a report viewer/editor page with a structured, editable format (rich sections/fields) and save-to-backend behavior. Show versioning metadata (last updated time and version) from the report record, and ensure reloading reflects saved edits."
+        },
+        {
+          "path": "frontend/src/components/report/ReportSections.tsx",
+          "operation": "create",
+          "description": "Implement the report section rendering/editing UI (controlled inputs/textarea-based rich fields as needed) that can be reused for view vs edit modes, while keeping all user-facing text in English."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Register routes to the results and report viewer/editor pages and ensure navigation from assessment completion to results to report is fully wired (no orphan views)."
+        }
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "summary": "Implement the end-to-end frontend website workflow: dashboard/landing, onboarding/profile, assessments list, active assessment, results, report viewer/editor, and history.",
+      "acceptanceCriteria": [
+        "A signed-in user can navigate from dashboard to start an assessment",
+        "After completion, the user can view scores and open the generated report",
+        "The user can browse a history list and reopen past reports"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/layout/AppShell.tsx",
+          "operation": "create",
+          "description": "Create a consistent layout shell (header/nav/content) for all authenticated screens, including primary navigation links to Dashboard, Assessments, History, and Profile."
+        },
+        {
+          "path": "frontend/src/pages/DashboardPage.tsx",
+          "operation": "create",
+          "description": "Create a landing/dashboard screen for signed-in users that surfaces onboarding/profile completion status, entry points to assessments, and highlights program context."
+        },
+        {
+          "path": "frontend/src/pages/AssessmentsListPage.tsx",
+          "operation": "create",
+          "description": "Create an assessments list screen that allows the student to start/resume the 150-question assessment and clearly shows current progress if an in-progress session exists."
+        },
+        {
+          "path": "frontend/src/pages/HistoryPage.tsx",
+          "operation": "create",
+          "description": "Create a history screen that lists the student's past assessment sessions and reports using backend list capabilities, and allows reopening a selected report."
+        },
+        {
+          "path": "frontend/src/hooks/useHistory.ts",
+          "operation": "create",
+          "description": "Add React Query hooks to load historical sessions/reports for the signed-in user using backend capabilities (getUserAssessmentSessions and getUserCareerReports) and keep UI responsive with loading/empty states."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wire Dashboard, Profile, Assessments, Assessment flow, Results, Report editor, and History screens into the router and navigation within the AppShell, ensuring all navigable views are registered and reachable."
+        }
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "summary": "Apply a coherent visual theme across the frontend with consistent responsive layout, typography, colors, and interactive states.",
+      "acceptanceCriteria": [
+        "All primary screens share a consistent typography and color system",
+        "Interactive states (hover/focus/disabled) are styled consistently",
+        "Layout is responsive and usable on mobile and desktop"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/index.css",
+          "operation": "modify",
+          "description": "Adjust global CSS variables and base styles to establish a modern education/career-guidance theme (neutral palette with clear primary/accent), consistent typography defaults, and reliable focus/disabled states."
+        },
+        {
+          "path": "frontend/tailwind.config.js",
+          "operation": "modify",
+          "description": "Refine theme tokens (colors, radii, shadows, typography defaults) to support consistent styling across all screens while keeping compatibility with existing Tailwind/shadcn conventions."
+        },
+        {
+          "path": "frontend/src/components/layout/AppShell.tsx",
+          "operation": "modify",
+          "description": "Ensure the layout applies consistent spacing, responsive breakpoints, and styled navigation/CTA patterns across desktop and mobile."
+        }
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "summary": "Add required generated static image assets and render them in the UI as static frontend assets without backend calls.",
+      "acceptanceCriteria": [
+        "Generated images exist under frontend/public/assets/generated with the specified filenames",
+        "Frontend loads these images as static assets and displays them without backend calls"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/public/assets/generated/belkrishna-logo.dim_512x512.png",
+          "operation": "create",
+          "description": "Add the generated static image asset file to the required location for use in the app header/branding."
+        },
+        {
+          "path": "frontend/public/assets/generated/career-hero.dim_1600x900.png",
+          "operation": "create",
+          "description": "Add the generated static hero illustration asset file to the required location for use on dashboard/landing sections."
+        },
+        {
+          "path": "frontend/src/pages/DashboardPage.tsx",
+          "operation": "modify",
+          "description": "Render the static hero image from frontend/public/assets/generated/career-hero.dim_1600x900.png in the dashboard/landing experience without routing through the backend."
+        },
+        {
+          "path": "frontend/src/components/layout/AppShell.tsx",
+          "operation": "modify",
+          "description": "Render the static logo from frontend/public/assets/generated/belkrishna-logo.dim_512x512.png in the app header/navigation without routing through the backend."
+        }
+      ]
+    }
+  ]
+}

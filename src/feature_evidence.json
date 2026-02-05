@@ -1,0 +1,136 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-implement-student-registration-and-user-account-management-using-internet-identity-login-on-the-frontend-and-persist-a-student-profile-in-the-motoko-backend-keyed-by-the-authenticated-principal-create-on-first-login-fetch-update-on-subsequent-logins",
+      "featureTitle": "Implement student registration and user account management using Internet Identity login on the frontend, and persist a student profile in the Motoko backend keyed by the authenticated principal (create on first login, fetch/update on subsequent logins).",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/auth/LoginButton.tsx",
+        "frontend/src/components/profile/ProfileSetupModal.tsx",
+        "frontend/src/pages/ProfilePage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-1"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-create-the-full-test-taking-workflow-to-deliver-all-150-assessment-questions-in-the-react-app-including-start-assessment-progress-indicator-navigating-questions-saving-responses-review-screen-submission-finish-and-preventing-data-loss-on-refresh-by-loading-the-in-progress-session-state-from-the-backend",
+      "featureTitle": "Create the full test-taking workflow to deliver all 150 assessment questions in the React app, including: start assessment, progress indicator, navigating questions, saving responses, review screen, submission/finish, and preventing data loss on refresh by loading the in-progress session state from the backend.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/lib/assessment/questions.ts",
+        "frontend/src/pages/AssessmentCompletePage.tsx",
+        "frontend/src/pages/AssessmentReviewPage.tsx",
+        "frontend/src/pages/AssessmentRunnerPage.tsx",
+        "frontend/src/pages/AssessmentStartPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-2"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-generate-a-detailed-career-guidance-report-after-scoring-and-provide-a-fully-editable-report-format-in-the-frontend-rich-sections-fields-editable-by-an-authorized-user-with-backend-persistence-for-edits-and-versioning-metadata-e-g-last-updated-time-updated-by",
+      "featureTitle": "Generate a detailed career guidance report after scoring, and provide a fully editable report format in the frontend (rich sections/fields editable by an authorized user) with backend persistence for edits and versioning metadata (e.g., last updated time, updated by).",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/pages/ReportEditorPage.tsx",
+        "frontend/src/pages/ResultsPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-4"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-create-the-end-to-end-website-workflow-in-the-frontend-for-the-belkrishna-globaledge-program-including-landing-dashboard-student-onboarding-profile-assessments-list-active-assessment-experience-results-scores-view-report-viewer-editor-and-history-screen-for-past-sessions-and-reports",
+      "featureTitle": "Create the end-to-end website workflow in the frontend for the BELKRISHNA GlobalEdge program, including: landing/dashboard, student onboarding/profile, assessments list, active assessment experience, results/scores view, report viewer/editor, and history screen for past sessions and reports.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/layout/AppShell.tsx",
+        "frontend/src/pages/AssessmentsListPage.tsx",
+        "frontend/src/pages/DashboardPage.tsx",
+        "frontend/src/pages/HistoryPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-6"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-apply-a-coherent-creative-visual-theme-across-the-frontend-colors-typography-spacing-and-component-styling-suitable-for-a-career-guidance-education-product-and-enforce-it-consistently-across-all-pages-and-states",
+      "featureTitle": "Apply a coherent, creative visual theme across the frontend (colors, typography, spacing, and component styling) suitable for a career guidance/education product, and enforce it consistently across all pages and states.",
+      "files": [
+        "frontend/index.css",
+        "frontend/src/components/layout/AppShell.tsx",
+        "frontend/tailwind.config.js"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-7"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-generated-static-image-assets-required-by-the-app-into-frontend-public-assets-generated-and-render-them-appropriately-in-the-ui-e-g-in-the-landing-and-or-dashboard-screens-without-routing-images-through-the-backend",
+      "featureTitle": "Add generated static image assets required by the app into frontend/public/assets/generated and render them appropriately in the UI (e.g., in the landing and/or dashboard screens) without routing images through the backend.",
+      "files": [
+        "frontend/src/components/layout/AppShell.tsx",
+        "frontend/src/pages/DashboardPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-8"
+      ],
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,2 +1,3 @@
-# belkrishna-globaledge-career-guidance-program
-Exported from Caffeine project: BELKRISHNA GlobalEdge Career Guidance Program
+## BELKRISHNA GlobalEdge Career Guidance Program
+
+To run app build and run docker image: `docker build -t app . docker run -it --network host app`

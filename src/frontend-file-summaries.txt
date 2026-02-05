@@ -1,0 +1,7 @@
+{
+  "frontend/src/pages/AssessmentReviewPage.tsx": "Assessment review page that displays all questions organized by category with completion status and allows navigation back to the assessment runner using typed route parameters.",
+  "frontend/src/pages/AssessmentsListPage.tsx": "Assessments list page showing the main career assessment card with progress tracking for in-progress sessions and a list of completed assessments, using typed route parameters for navigation.",
+  "frontend/src/pages/DashboardPage.tsx": "Main dashboard page displaying welcome message, assessment statistics, in-progress session status, and program information cards with typed route navigation.",
+  "frontend/src/pages/HistoryPage.tsx": "History page displaying all career reports and completed assessment sessions with their scores and dates, using typed route parameters for navigation to detailed views.",
+  "frontend/src/index.css": "Global CSS file with Tailwind directives and OKLCH color system variables for light and dark themes, defining the complete design token system for the application."
+}

@@ -1,0 +1,169 @@
+{
+  "kind": "build_request",
+  "title": "Build BELKRISHNA GlobalEdge Career Guidance Program web app (registration, assessments, scoring, editable reports, storage)",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "text": "Implement student registration and user account management using Internet Identity login on the frontend, and persist a student profile in the Motoko backend keyed by the authenticated principal (create on first login, fetch/update on subsequent logins).",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-0"
+        ],
+        "quotes": [
+          "You asked for a complete system that includes all 150 assessment questions, a full editable report format, a website workflow, and an app that delivers the entire BELKRISHNA GlobalEdge Career Guidance Program. I’ll build an app that handles student registration..."
+        ]
+      },
+      "acceptanceCriteria": [
+        "A user can sign in with Internet Identity and see their profile information",
+        "Backend stores and returns a profile record for the signed-in principal",
+        "A user can update basic profile fields and see them persisted after refresh/re-login"
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "text": "Create the full test-taking workflow to deliver all 150 assessment questions in the React app, including: start assessment, progress indicator, navigating questions, saving responses, review screen, submission/finish, and preventing data loss on refresh by loading the in-progress session state from the backend.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-0"
+        ],
+        "quotes": [
+          "...includes all 150 assessment questions... runs the tests... stores everything for easy retrieval."
+        ]
+      },
+      "acceptanceCriteria": [
+        "The UI presents an assessment flow with question navigation and progress",
+        "Responses are persisted to the backend during the session (not only at the end)",
+        "Refreshing the page resumes the latest in-progress session for the signed-in user"
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "text": "Implement automated scoring/assessment logic in the Motoko backend for the 150-question assessment, producing a structured score output that can be used to generate a career guidance report; expose backend methods to compute and retrieve scores for a completed session.",
+      "target": "backend",
+      "source": {
+        "messageIds": [
+          "msg-0"
+        ],
+        "quotes": [
+          "...scores them, generates detailed career reports..."
+        ]
+      },
+      "acceptanceCriteria": [
+        "Completing an assessment session triggers a deterministic score computation in the backend",
+        "Scores for a completed session can be retrieved via a backend query call",
+        "Scores are persisted and still retrievable after canister redeploy (stable storage)"
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "text": "Generate a detailed career guidance report after scoring, and provide a fully editable report format in the frontend (rich sections/fields editable by an authorized user) with backend persistence for edits and versioning metadata (e.g., last updated time, updated by).",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-0"
+        ],
+        "quotes": [
+          "...generates detailed career reports... full editable report format..."
+        ]
+      },
+      "acceptanceCriteria": [
+        "After completing scoring, a report is created and viewable for that session",
+        "A user can edit report fields in the UI and save changes",
+        "Reloading the report shows the saved edits and updated timestamps"
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "text": "Implement persistent storage and retrieval for student test sessions, responses, computed scores, and generated reports in the single Motoko actor, including backend APIs to list a student's historical sessions/reports and fetch any specific record by ID with access control enforcing that only the owning principal (or an explicitly defined admin role) can access it.",
+      "target": "backend",
+      "source": {
+        "messageIds": [
+          "msg-0"
+        ],
+        "quotes": [
+          "...stores everything for easy retrieval."
+        ]
+      },
+      "acceptanceCriteria": [
+        "Backend can list all sessions/reports for the signed-in principal",
+        "Backend rejects access to another principal’s sessions/reports",
+        "Stored sessions/reports remain available after canister upgrade (stable storage)"
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "text": "Create the end-to-end website workflow in the frontend for the BELKRISHNA GlobalEdge program, including: landing/dashboard, student onboarding/profile, assessments list, active assessment experience, results/scores view, report viewer/editor, and history screen for past sessions and reports.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-0"
+        ],
+        "quotes": [
+          "...a website workflow, and an app that delivers the entire BELKRISHNA GlobalEdge Career Guidance Program."
+        ]
+      },
+      "acceptanceCriteria": [
+        "A signed-in user can navigate from dashboard to start an assessment",
+        "After completion, the user can view scores and open the generated report",
+        "The user can browse a history list and reopen past reports"
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "text": "Apply a coherent, creative visual theme across the frontend (colors, typography, spacing, and component styling) suitable for a career guidance/education product, and enforce it consistently across all pages and states.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "can you do it"
+        ]
+      },
+      "acceptanceCriteria": [
+        "All primary screens share a consistent typography and color system",
+        "Interactive states (hover/focus/disabled) are styled consistently",
+        "Layout is responsive and usable on mobile and desktop"
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "text": "Add generated static image assets required by the app into frontend/public/assets/generated and render them appropriately in the UI (e.g., in the landing and/or dashboard screens) without routing images through the backend.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-0"
+        ],
+        "quotes": [
+          "...a website workflow..."
+        ]
+      },
+      "acceptanceCriteria": [
+        "Generated images exist under frontend/public/assets/generated with the specified filenames",
+        "Frontend loads these images as static assets and displays them without backend calls"
+      ]
+    }
+  ],
+  "constraints": [
+    "Backend must remain a single Motoko actor in backend/main.mo (no additional backend services).",
+    "Do not modify any files under frontend/src/components/ui (compose them instead).",
+    "Do not modify immutable paths listed in SYSTEM_CONTEXT.frontend.immutablePaths.",
+    "Use English for any user-facing text."
+  ],
+  "nonGoals": [
+    "Integrations with third-party authentication providers other than Internet Identity",
+    "External databases or off-platform storage services",
+    "Real-time features (WebSockets/live collaboration/chat)",
+    "Payments or subscription billing"
+  ],
+  "imageRequirements": {
+    "required": [
+      "Minimal, modern education/career guidance logo mark with neutral palette (belkrishna-logo.dim_512x512.png)",
+      "Clean vector-style hero illustration showing a student planning a career path with abstract shapes (career-hero.dim_1600x900.png)"
+    ],
+    "edits": []
+  }
+}
